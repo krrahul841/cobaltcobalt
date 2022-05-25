@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center">Image validation using javascripts</h1>
+    <form style="text-align: center" name="myform" onsubmit="return validation()">
+        <label>Image upload : </label>
+        <input  type="file" name="image">
+        <input  type="submit" value="submit">
+    </form>
+
+    <script>
+        var img = document.forms['myform']['image'];
+        var validExt = ["jpeg","png","jpg"];
+
+        function validation()
+        {
+            if(img.value!='')
+            {
+                var pos_of_dot=img.value.lastIndexOf('.')+1;
+                var img_ext = img.value.substring(pos_of_dot);
+              
+                var result=validExt.includes(img_ext);
+               if(result==false){
+                   alert("selected file is not an image...");
+                   return false;
+               }
+               else{
+                   if(img.files[0].size/(1024*1024)>=1)
+                   {
+                       alert("Image size should be less than 1MB. Current file size is : " + parseFloat(img.files[0].size/(1024*1024)));
+                       return false;
+                   }
+               }
+            }
+            else{
+                alert("no Image is selected...");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
